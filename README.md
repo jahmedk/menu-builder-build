@@ -78,7 +78,15 @@ function App() {
         value={formData.href}
         onChange={(e) => setFormData({ ...formData, href: e.target.value })}
       />
-      <MenuBuilder items={menus} setItems={setMenus} />
+      <MenuBuilder
+          items={menus}
+          setItems={setMenus}
+          onDragStart={(id) => {
+              console.log(id, ':onDragStart:');
+          }}
+          onDragEnd={() => {
+              console.log(':onDragEnd:');
+          }} />
     </div>
   );
 }
@@ -91,6 +99,7 @@ const initialMenus = [
     name: "Home",
     href: "/home",
     children: [],
+    collapsible: true
   },
   {
     id: "Collections",
@@ -122,6 +131,8 @@ const initialFormData = {
 | style    | enum     | null     | "bordered" or "shadow"                     |
 | items    | MenuItem | {}       | Menu Items                                 |
 | setItems | function | null     | Just pass the setState setItems={setMenus} |
+| onDragStart | function | null     |  |
+| onDragEnd | function | null     |  |
 
 ```js
 type MenuItem = {
@@ -129,12 +140,9 @@ type MenuItem = {
   name: string,
   href: string,
   children?: undefined,
+  collapsible?: undefined,
 };
 ```
-
-## 🤝 Contributing
-
-Let’s create great products together! We encourage and welcome collaboration and any type of contribution.
 
 ## License
 
